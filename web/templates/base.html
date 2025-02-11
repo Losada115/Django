@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sabrosuras del Huila</title>
+    
+    <link rel="stylesheet" href="{% static 'estilos.css' %}">
+    <link rel="shortcut icon" href="{% static 'img/Sabrosuras del Huila.png' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header principal con logo, contacto y usuario -->
+<header>
+    <div class="container-hero">
+        <div class="container hero">
+            
+            <!-- Soporte al cliente -->
+            <div class="customer-support">
+                <i class="fa-solid fa-envelope"></i> 
+                <div class="content-customer-support">
+                    <span class="text"><a href="{% url 'contactanos' %}">Contáctanos aquí</a></span>
+                </div>
+            </div>
+
+            <!-- Logo -->
+            <div class="container-logo">
+                <h1 class="logo"><a href="/">Sabrosuras del Huila</a></h1>
+            </div>
+
+            <!-- Icono de usuario -->
+            <div class="container-user">
+                <a href="{% url 'registro' %}" class="user-icon">
+                    <i class="fa-solid fa-user"></i>
+                </a>
+            </div>
+
+        </div> <!-- Cierre de .hero dentro de .container-hero -->
+    </div>
+</header>
+
+<!-- Header del menú de navegación -->
+<header class="header-menu">
+    <img class="hamburguer" src="{% static 'img/menu.png' %}">
+    <nav class="menu-navegacion">
+        <a href="#inicio">Inicio</a>
+        <a href="#servicios">Categorías</a>
+        <a href="#Galeria">Productos</a>
+        <a href="#Quienes">Quiénes somos</a>
+        <a href="#ubi">Ubicación</a>
+    </nav>
+</header>
+
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container container-footer">
+            <div class="menu-footer">
+                <div class="contact-info">
+                    <p class="title-footer">Información de Contacto</p>
+                    <ul>
+                        <li>Dirección: Carrera 9 #5 - 29 Centro</li>
+                        <li>Teléfono: 3204500034</li>
+                        <li>Email: sabrohuila@gmail.com</li>
+                    </ul>
+                </div>
+
+                <div class="information">
+                    <p class="title-footer">Información</p>
+                    <ul>
+                        <li><a href="#Quienes">Acerca de Nosotros</a></li>
+                        <li><a href="#">Políticas de Privacidad</a></li>
+                        <li><a href="#">Términos y condiciones</a></li>
+                        <li><a href="{% url 'contactanos' %}">Contáctanos</a></li>
+
+                    </ul>
+                </div>
+
+                <div class="my-account">
+                    <p class="title-footer">Nuestras redes</p>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/profile.php?id=61561505656583&locale=es_LA" class="facebook" target="_blank" rel="noopener noreferrer">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="" class="youtube"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="https://www.instagram.com/sabrosura_del_huila/" class="instagram" target="_blank" rel="noopener noreferrer">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                    </div><H1></H1>
+                </div>
+            </div>         
+        </div>
+    </footer>
+
+
+    <script src="{% static 'js/menu.js' %}"></script>
+</body>
+</html>
