@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'estilos.css' %}">
-
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'estilos.css' %}">
+
 <section class="banner">
     <div class="content-banner">
-        <p>Productos Tipicos del Huila</p>
-        <h2>100% Artesanal <br />Descubre el encanto de lo Artesanal </h2>
+        <p>Productos Típicos del Huila</p>
+        <h2>100% Artesanal <br />Descubre el encanto de lo Artesanal</h2>
     </div>
 </section>
 
@@ -23,7 +23,7 @@
         <div class="card-feature">
             <i class="fa-solid fa-wallet"></i>
             <div class="feature-content">
-                <span>Contrareembolso</span>
+                <span>Contraentrega</span>
                 <p>100% garantía de devolución de dinero</p>
             </div>
         </div>
@@ -31,162 +31,132 @@
             <i class="fa-solid fa-gift"></i>
             <div class="feature-content">
                 <span>Ofertas especiales</span>
-                <p>Ofrece ofertas por comprar productos</p>
+                <p>Descuentos por compras grandes</p>
             </div>
         </div>
         <div class="card-feature">
             <i class="fa-solid fa-headset"></i>
             <div class="feature-content">
-                <span>Servicio al cliente 12 horas al dia</span>
-                <p>LLámenos 3204500034</p>
+                <span>Atención al cliente</span>
+                <p>Llámanos al 3204500034</p>
             </div>
         </div>
     </section>
-    <section class="container top-categories" id="servicios">
-        <h1 class="heading-1">Mejores Categorias</h1>
+
+    <section class="container top-categories">
+        <h1 class="heading-1">Mejores Categorías</h1>
         <div class="container-categories">
             <div class="card-category category-moca">
                 <span class="titulo-item">Roscas</span>
-                
             </div>
             <div class="card-category category-expreso">
                 <span class="titulo-item">Bizcochos</span>
-                
             </div>
             <div class="card-category category-capuchino">
                 <span class="titulo-item">Galletas</span>
-            
-                
             </div>
         </div>
     </section>
 
     <section class="container-top-products">
         <h1 class="heading-1">Nuestros Productos</h1>
-
         <div class="container-options">
-            <span class="active">Galeria de fotos</span>
-            
+            <span class="active">Galería de fotos</span>
         </div>
+        
+        <!-- Sección de Productos -->
         {% load humanize %}
-        <section class="contenedor" id="Galeria">
-            <div class="contenedor-items">
-                {% for producto in productos %}
-                    <div class="item">
-                        <span class="titulo-item">{{ producto.nombre }}</span>
-                        <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" class="img-item">
-                        <span class="precio-item">${{ producto.precio|floatformat:0|intcomma }}</span>
-                        <button class="boton-item">Agregar al Carrito</button>
-                    </div>
-                {% empty %}
-                    <p>No hay productos disponibles en este momento.</p>
-                {% endfor %}
+<section class="contenedor" id="Galeria">
+    <div class="contenedor-items">
+        {% for producto in productos %}
+            <div class="item">
+                <span class="titulo-item">{{ producto.nombre }}</span>
+                <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" class="img-item">
+                <span class="precio-item">${{ producto.precio|floatformat:0|intcomma }}</span>
+                <button class="boton-item agregar-carrito">Agregar al Carrito</button>
             </div>
-        
-            <!-- Carrito de Compras -->
-            <div class="carrito" id="carrito">
-                <div class="header-carrito">
-                    <h2>Tu Carrito</h2>
-                </div>
-        
-                <div class="carrito-items">
-                    
-                </div>
-        
-                <div class="carrito-total">
-                    <div class="fila">
-                        <strong>Tu Total</strong>
-                        <span class="carrito-precio-total">
-                            $120.000,00
-                        </span>
-                    </div>
-                    <button class="btn-pagar">Pagar <i class="fa-solid fa-bag-shopping"></i> </button>
-                </div>
-            </div>
-        </section>
-        
-            
-    <section class="container blogs" id="Quienes">
-        <h1 class="heading-1">¿Quienes somos?</h1>
+        {% empty %}
+            <p>No hay productos disponibles en este momento.</p>
+        {% endfor %}
+    </div>
 
-        <div class="container-blogs">
-            <div class="card-blog">
-                <div class="container-img">
-                    
-                    <div class="button-group-blog">
-                        <span>
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </span>
-                        <span>
-                            <i class="fa-solid fa-link"></i>
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="content-blog">
-                    <h3>Misión</h3>
-                    <p>
-                        "Nuestra misión es deleitar a nuestros clientes con una variedad de biscochería y galletas artesanales, frescas y de alta calidad, mientras proporcionamos un servicio excepcional y una experiencia única en cada interacción. Nos comprometemos a utilizar solo ingredientes naturales y frescos, y a apoyar a los productores locales y sostenibles."
-                    </p>
-                    
-                </div>
+    <!-- Carrito de Compras -->
+    <div class="carrito">
+        <div class="header-carrito">
+            <h2>Tu Carrito</h2>
+        </div>
+        <div class="carrito-items"></div>
+        <div class="carrito-total">
+            <div class="fila">
+                <strong>Tu Total</strong>
+                <span class="carrito-precio-total">$0</span>
             </div>
-            <div class="card-blog">
-                <div class="container-img">
-                    
-                    <div class="button-group-blog">
-                        <span>
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </span>
-                        <span>
-                            <i class="fa-solid fa-link"></i>
-                        </span>
-                    </div>
-                </div>
-                <div class="content-blog">
-                    <h3>Visión</h3>
-                    
-                    <p>
-                        "Ser la biscochería y galletaría más reconocida y querida en la región, conocida por nuestra pasión por la calidad, la innovación y la satisfacción del cliente. Queremos ser el destino preferido para aquellos que buscan un regalo especial, un postre delicioso o simplemente un momento de alegría y satisfacción."
-                    </p>
-                
-                </div>
+            <button class="btn-pagar" id="btn-pagar">Pagar <i class="fa-solid fa-bag-shopping"></i></button>
+        </div>
+    </div>
+
+    <!-- Modal de Métodos de Pago -->
+    <div id="modal-pago" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2>Selecciona un método de pago</h2>
+            <div class="opciones-pago">
+                <button id="nequi">Nequi</button>
+                <button id="daviplata">Daviplata</button>
+                <button id="bancolombia">Bancolombia</button>
             </div>
-            <div class="card-blog">
-                <div class="container-img">
-                    
-                    <div class="button-group-blog">
-                        <span>
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </span>
-                        <span>
-                            <i class="fa-solid fa-link"></i>
-                        </span>
-                    </div>
-                </div>
+            <div id="qr-container" style="display: none;">
+                <h3>Escanea el código QR para pagar</h3>
+                <img id="qr-imagen" src="" alt="Código QR">
+                <p id="qr-texto" style="display: none;"></p>
             </div>
         </div>
-    </section>
-</main>
+    </div>
+</section>
 
-<!-- Mapanoti -->
+        
 
+<!-- Sección Quiénes Somos -->
+<section class="about-us" id="Quienes">
+    <h1 class="about-us-title">¿Quiénes Somos?</h1>
+    <div class="about-us-cards">
+        <div class="about-us-card">
+            <div class="card-icon">
+                <i class="fa-solid fa-bullseye"></i>
+            </div>
+            <div class="card-content">
+                <h2>Misión</h2>
+                <p>Nuestra misión es deleitar a nuestros clientes con biscochería y galletas artesanales de alta calidad, utilizando ingredientes naturales y apoyando a productores locales.</p>
+            </div>
+        </div>
+        <div class="about-us-card">
+            <div class="card-icon">
+                <i class="fa-solid fa-eye"></i>
+            </div>
+            <div class="card-content">
+                <h2>Visión</h2>
+                <p>Ser la biscochería más reconocida en la región por calidad, innovación y satisfacción del cliente.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Mapa de Ubicación -->
 <div class="mapanoti" id="ubi">
     <iframe src="https://www.google.com/maps/embed?pb=!4v1739285373774!6m8!1m7!1sO_Qbs_iO9PM15UiKdcoh5Q!2m2!1d2.195362359648235!2d-75.62832856170553!3f321.4959725531632!4f-20.644126725283144!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-<h1>Ubícanos con  <br> ayuda del mapa</h1>
+    <h1>Ubícanos con ayuda del mapa</h1>
 </div>
 
-<!-- Video corto -->
+<!-- Video -->
 <section class="master">
-    <h1>Conoce en dónde  <br> nos puedes ubicar</h1>
+    <h1>Conoce en dónde nos puedes ubicar</h1>
     <div>
-        <video controls autoplay muted  poster="">
-            <source src="/static/video/1.mp4">
+        <video controls autoplay muted>
+            <source src="{% static 'video/1.mp4' %}" type="video/mp4">
         </video>
     </div>
 </section>
 
 <script src="{% static 'js/app.js' %}"></script>
-
 {% endblock %}
 

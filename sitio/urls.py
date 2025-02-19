@@ -26,12 +26,12 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-from web.views import contactanos  # Importar la vista de contacto
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('web.urls')),  
-    path('contact/', contactanos, name='contactanos'),  # Ruta para la página de contacto
+
 ]
 
 

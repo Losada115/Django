@@ -19,7 +19,7 @@
             
             <!-- Soporte al cliente -->
             <div class="customer-support">
-                <i class="fa-solid fa-envelope"></i> 
+                <i class="fa-solid fa-envelope"></i>
                 <div class="content-customer-support">
                     <span class="text"><a href="{% url 'contactanos' %}">Contáctanos aquí</a></span>
                 </div>
@@ -30,27 +30,44 @@
                 <h1 class="logo"><a href="/">Sabrosuras del Huila</a></h1>
             </div>
 
-            <!-- Icono de usuario -->
+            <!-- Icono de usuario y saludo -->
             <div class="container-user">
-                <a href="{% url 'registro' %}" class="user-icon">
-                    <i class="fa-solid fa-user"></i>
-                </a>
+                {% if user.is_authenticated %}
+                    <div class="user-info">
+                        <i class="fa-solid fa-user-circle"></i>  
+                        <p>Bienvenido, {{ user.username }} 🖐🏽</p>
+                        <a href="{% url 'logout' %}" class="logout-icon">
+                            <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="user-login">
+                        <a href="{% url 'login' %}" class="login-link">
+                            <i class="fa-solid fa-user"></i>
+                            
+                        </a>
+                    </div>
+                {% endif %}
             </div>
+        </div>
+            
+            
+      <!-- Ícono del Menú Hamburguesa -->
+        <div class="menu-container">
+            <img class="hamburguer" src="{% static 'img/menu.png' %}">
+        </div>
 
-        </div> <!-- Cierre de .hero dentro de .container-hero -->
+        <!-- Menú de navegación -->
+        <div class="container-navbar">
+            <nav class="menu-navegacion">
+                <a href="#inicio">Inicio</a>
+                <a href="#Quienes">Quiénes somos</a>
+                <a href="#servicios">Categorías</a>
+                <a href="#Galeria">Productos</a>
+                <a href="#ubi">Ubicación</a>
+            </nav>
+        </div>
     </div>
-</header>
-
-<!-- Header del menú de navegación -->
-<header class="header-menu">
-    <img class="hamburguer" src="{% static 'img/menu.png' %}">
-    <nav class="menu-navegacion">
-        <a href="#inicio">Inicio</a>
-        <a href="#servicios">Categorías</a>
-        <a href="#Galeria">Productos</a>
-        <a href="#Quienes">Quiénes somos</a>
-        <a href="#ubi">Ubicación</a>
-    </nav>
 </header>
 
 
@@ -78,7 +95,6 @@
                         <li><a href="#Quienes">Acerca de Nosotros</a></li>
                         <li><a href="#">Políticas de Privacidad</a></li>
                         <li><a href="#">Términos y condiciones</a></li>
-                        <li><a href="{% url 'contactanos' %}">Contáctanos</a></li>
 
                     </ul>
                 </div>

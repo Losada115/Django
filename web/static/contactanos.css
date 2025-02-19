@@ -1,22 +1,25 @@
 body {
-    font-family: Arial, sans-serif;
+  
     background-color: #fff9e6;
-    text-align: center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
 }
 
 h2 {
     font-size: 40px;
     font-weight: bold;
     color: #000000;
-    text-transform: uppercase;
     letter-spacing: 2px;
-    margin-top: 30px;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
-    background-color: #FFEDD5;
-    padding: 15px;
-    border-radius: 10px;
-    display: inline-block;
+    background-color: #FFD59E;
+    border-radius: 12px;
+    display: block;
+    width: fit-content;
+    margin: 30px auto 20px auto; 
+    padding: 20px;
 }
 
 .contact-form {
@@ -79,3 +82,35 @@ h2 {
     background-color: #e76f51;
     transform: scale(1.05);
 }
+.message-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.alert-success {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 25px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 10px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+    max-width: 60%;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Animación suave */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
