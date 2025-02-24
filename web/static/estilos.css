@@ -104,76 +104,22 @@ html {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 1rem; /* Espacio entre los elementos */
+    gap: 1rem; /* Espacio entre el icono y el saludo */
     padding: 1rem;
     flex: 1;
 }
 
-/* Icono de usuario */
-.container-user .fa-user, 
-.container-user .fa-user-circle {
-    font-size: 2.5rem;
-    color: #333; /* Color oscuro elegante */
-    transition: color 0.3s ease-in-out;
+.container-user .fa-user {
+    font-size: 3rem;
+    color: #000;
 }
 
-.container-user .fa-user:hover, 
-.container-user .fa-user-circle:hover {
-    color: #ff6600; /* Cambia a naranja al pasar el mouse */
-}
-
-/* Saludo de bienvenida */
 .container-user p {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     font-weight: bold;
-    color: #222;
+    color: #000000;
     margin: 0;
-    text-transform: capitalize;
 }
-
-/* Enlace de cerrar sesión */
-.logout-icon {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1.4rem;
-    color: #d9534f; /* Rojo elegante */
-    transition: color 0.3s ease-in-out;
-}
-
-.logout-icon i {
-    font-size: 1.6rem;
-}
-
-.logout-icon:hover {
-    color: #c9302c; /* Rojo más intenso al pasar el mouse */
-}
-
-/* Ajustes para pantallas pequeñas (móviles) */
-@media screen and (max-width: 768px) {
-    .container-user {
-        justify-content: center;
-        flex-direction: column;
-        gap: 0.5rem;
-        padding: 0.5rem;
-    }
-
-    .container-user p {
-        font-size: 1.4rem;
-    }
-
-    .container-user .fa-user, 
-    .container-user .fa-user-circle {
-        font-size: 2rem;
-    }
-
-    .logout-icon {
-        font-size: 1.2rem;
-    }
-}
-
 
 /* ********* MENU DE NAVEGACIÓN ********* */
 .hamburguer {
@@ -919,41 +865,7 @@ html {
     }
 }
 
-/* ********************************** */
-/* Fondo negro transparente para el modal */
-/* ********************************** */
-.modal {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(34, 34, 34, 0.9); /* Fondo más oscuro y transparente para el modal */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    z-index: 1001;
-    width: 50%;
-    max-width: 600px;
-    text-align: center;
-}
 
-.modal-contenido {
-    color: white;
-}
-
-.cerrar {
-    font-size: 25px;
-    color: #fff;
-    cursor: pointer;
-    position: absolute;
-    top: 15px;
-    right: 15px;
-}
-
-.cerrar:hover {
-    color: #ff7b00;
-}
 
 /* ********************************** */
 /* Estilos del carrito */
@@ -1089,39 +1001,6 @@ html {
 .carrito-total .btn-pagar:hover {
     scale: 1.05;
 }
-/* Botón de eliminar restaurado y corregido */
-.carrito .carrito-item .btn-eliminar {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #000;
-    font-size: 20px;
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-    text-align: center;
-    border-radius: 50%;
-    border: 1px solid #000000;
-    cursor: pointer;
-    background: transparent;
-    transition: background 0.3s, transform 0.2s ease-in-out;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.carrito .carrito-item .btn-eliminar:hover {
-    background: rgba(255, 0, 0, 0.8);
-    border-color: red;
-    color: white;
-    transform: scale(1.1);
-}
-
-.carrito .carrito-item .btn-eliminar i {
-    pointer-events: none;
-}
-
 
 /* ********************************** */
 /* Estilo para los botones de agregar al carrito */
@@ -1141,52 +1020,66 @@ html {
 }
 
 /* ********************************** */
-/* Modal QR */
-#qr-container {
-    display: none;
-    text-align: center;
-    margin-top: 20px;
-    
-}
-
-/* Efecto de zoom, brillo y nitidez al QR */
-#qr-imagen {
-    width: 320px; /* Más grande */
-    height: 320px;
-    margin-top: 20px;
-    border-radius: 25px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    transition: transform 0.4s ease, box-shadow 0.4s ease, filter 0.3s ease;
-    border: 5px solid rgba(255, 255, 255, 0.7);
-    image-rendering: crisp-edges; /* Mejora la nitidez */
-    filter: drop-shadow(0px 0px 10px rgba(255, 255, 255, 0.5)); /* Glow suave */
-}
-
-/* Animación al pasar el mouse */
-#qr-imagen:hover {
-    transform: scale(1.15) rotate(3deg); /* Hace zoom y gira un poco */
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
-    filter: brightness(1.2) drop-shadow(0px 0px 15px rgba(255, 255, 255, 0.8)); /* Más brillo y glow */
-}
-
-/* Estilos para el texto del QR */
-#qr-texto {
-    display: block !important;
-    text-align: center;
-    font-weight: bold;
-    margin-top: 15px;
-    font-size: 28px;
+/* Estilo para los botones de agregar al carrito */
+/* ********************************** */
+.boton-item {
+    padding: 10px 20px;
+    background-color: #ff7b00;
+    border: none;
     color: white;
-    background: linear-gradient(90deg, #ff1744, #ff9100);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 3px 3px 10px rgba(255, 69, 0, 0.7);
-    animation: vibrar 0.8s infinite alternate ease-in-out;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
 }
-/* Estilos del modal */
+
+.boton-item:hover {
+    background-color: #ff9d00;
+}
+
+/* ********************************** */
+/* Estilos generales del modal */
+/* ********************************** */
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.95); /* Fondo blanco semi-transparente */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 1001;
+    width: 80%;
+    max-width: 900px;
+    text-align: center;
+}
+
+.modal-contenido {
+    color: #333; /* Texto oscuro */
+    background: white; /* Fondo blanco para el contenido */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.cerrar {
+    font-size: 25px;
+    color: #ff5e62; /* Color naranja */
+    cursor: pointer;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.cerrar:hover {
+    color: #ff7b00; /* Naranja más oscuro al hacer hover */
+}
+
+/* Estilos generales del modal */
 #modal-pago {
-    width: 75%;
-    max-width: 850px;
+    width: 80%;
+    max-width: 900px;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -1202,64 +1095,258 @@ html {
 
 /* Contenido del modal */
 .modal-contenido {
-    padding: 25px;
-    border-radius: 15px;
-    background: linear-gradient(135deg, #1e1e1e, #4e54c8);
-    color: white;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-}
-
-/* Opciones de pago con borde y animación */
-.opciones-pago {
     padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.25);
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    transition: all 0.3s ease-in-out;
-	
+    border-radius: 18px;
+    background: white; /* Fondo blanco */
+    color: #333; /* Texto oscuro */
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+    display: flex;
+    gap: 20px;
 }
 
-/* Botones con efecto hover */
-button {
-    background: white;
-    color: #ff5e62;
-    padding: 12px 20px;
-    font-size: 18px;
+/* Diseño en dos columnas */
+.modal-body {
+    display: flex;
+    gap: 25px;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+/* Estilos del formulario (izquierda) */
+#formulario-pago {
+    flex: 1;
+    background: #fff3e0; /* Fondo naranja claro */
+    padding: 25px;
+    border-radius: 12px;
+    text-align: left;
+    box-shadow: 0 0 15px rgba(255, 94, 98, 0.1);
+}
+
+#formulario-pago h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #ff5e62; /* Naranja */
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+    color: #555; /* Texto oscuro */
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
     border-radius: 8px;
+    background: white;
+    color: #333; /* Texto oscuro */
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus {
+    border-color: #ff5e62; /* Naranja */
+    box-shadow: 0 0 10px rgba(255, 94, 98, 0.2);
+}
+
+input::placeholder {
+    color: #999; /* Texto gris */
+}
+
+/* Botón de confirmar pago */
+.btn-confirmar-pago {
+    width: 100%;
+    background: linear-gradient(90deg, #ff5e62, #ff9966); /* Degradado naranja */
+    color: white;
     border: none;
+    padding: 12px;
+    margin-top: 15px;
+    border-radius: 8px;
+    font-size: 18px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-	margin: 10px;
-	
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
-button:hover {
-    background: #ff5e62;
-    color: white;
+.btn-confirmar-pago:hover {
+    background: linear-gradient(90deg, #ff9966, #ff5e62); /* Degradado invertido */
+    transform: scale(1.05);
     box-shadow: 0 0 15px rgba(255, 94, 98, 0.8);
-    transform: scale(1.1);
 }
 
-/* Animaciones */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-    }
+/* Productos en el carrito (derecha) */
+#productos-pago {
+    flex: 1;
+    background: #fff3e0; /* Fondo naranja claro */
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(255, 94, 98, 0.1);
 }
 
+#productos-pago h3 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #ff5e62; /* Naranja */
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+/* Estilos para la lista de productos */
+#productos-pago ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#productos-pago ul li {
+    padding: 10px;
+    margin-bottom: 10px;
+    background: white;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#productos-pago ul li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Total de la compra */
+#total-pago {
+    text-align: center;
+    margin-top: 20px;
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#total-pago h3 {
+    font-size: 20px;
+    margin: 0;
+    color: #333; /* Texto oscuro */
+}
+
+#monto-total {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff5e62; /* Naranja */
+}
+
+/* ********************************** */
+/* Modal QR */
+#qr-container {
+    display: none;
+    text-align: center;
+    margin-top: 20px;
+	padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Efecto de zoom, brillo y nitidez al QR */
+/* ********************************** */
+/* Estilos para el contenedor del QR */
+/* ********************************** */
+#qr-container {
+    display: none;
+    text-align: center;
+    margin-top: 20px;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para la imagen del QR */
+#qr-imagen {
+    width: 200px; /* Tamaño más pequeño */
+    height: 200px;
+    margin: 10px auto; /* Centrado */
+    border-radius: 10px;
+    border: 3px solid rgba(255, 94, 98, 0.7); /* Borde naranja */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efecto hover en el QR */
+#qr-imagen:hover {
+    transform: scale(1.05); /* Ligero zoom */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilos para el texto del QR */
+#qr-texto {
+	display: block !important;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 18px;
+    color: #333;
+    background: linear-gradient(90deg, #ff5e62, #ff9966); /* Degradado naranja */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 2px 2px 5px rgba(255, 94, 98, 0.3);
+    animation: vibrar 0.8s infinite alternate ease-in-out;
+}
+
+/* Animación de vibrar */
 @keyframes vibrar {
-    0% { transform: translateX(-3px) rotate(-1deg); }
-    100% { transform: translateX(3px) rotate(1deg); }
+    0% {
+        transform: translateX(0px);
+    }
+    100% {
+        transform: translateX(3px);
+    }
 }
 
+/* Estilos para los botones de pago */
+.opciones-pago {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
 
+.opciones-pago h2 {
+    font-size: 24px;
+    color: #ff5e62; /* Naranja */
+    margin-bottom: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.opciones-pago button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #ff5e62, #ff9966); /* Degradado naranja */
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.opciones-pago button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(255, 94, 98, 0.8);
+}
 /* ********************************** */
 /*                BLOGS               */
 /* ********************************** */

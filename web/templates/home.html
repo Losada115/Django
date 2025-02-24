@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
+{% load humanize %}
+
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'estilos.css' %}">
@@ -43,7 +45,7 @@
         </div>
     </section>
 
-    <section class="container top-categories">
+    <section class="container top-categories" id="Servicio">
         <h1 class="heading-1">Mejores Categorías</h1>
         <div class="container-categories">
             <div class="card-category category-moca">
@@ -64,8 +66,8 @@
             <span class="active">Galería de fotos</span>
         </div>
         
-        <!-- Sección de Productos -->
         {% load humanize %}
+
 <section class="contenedor" id="Galeria">
     <div class="contenedor-items">
         {% for producto in productos %}
@@ -95,51 +97,62 @@
         </div>
     </div>
 
-    <!-- Modal de Métodos de Pago -->
+    <!-- Modal de pago -->
     <div id="modal-pago" class="modal">
         <div class="modal-contenido">
             <span class="cerrar">&times;</span>
-            <h2>Selecciona un método de pago</h2>
+           
+
+            <!-- Formulario de pago -->
+            <div id="formulario-pago">
+                <h2>Información de Pago</h2>
+                <form id="pago-form">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+
+                    <label for="apellido">Apellido:</label>
+                    <input type="text" id="apellido" name="apellido" required>
+
+                    <label for="celular">Celular:</label>
+                    <input type="tel" id="celular" name="celular" required>
+
+                    <label for="municipio">Municipio:</label>
+                    <input type="text" id="municipio" name="municipio" required>
+
+                    <label for="residencia">Dirección:</label>
+                    <input type="text" id="residencia" name="residencia" required>
+
+                    <input type="hidden" name="productos" id="productos-json">
+                </form>
+            </div>
+
+            <!-- Productos en el carrito -->
+            <div id="productos-pago">
+                <h3>Productos en el carrito:</h3>
+            </div>
+
+            <!-- Métodos de pago -->
+           
             <div class="opciones-pago">
+                <h2>Selecciona un método de pago</h2>
                 <button id="nequi">Nequi</button>
                 <button id="daviplata">Daviplata</button>
-                <button id="bancolombia">Bancolombia</button>
             </div>
+
+            <!-- Código QR y número de teléfono -->
             <div id="qr-container" style="display: none;">
                 <h3>Escanea el código QR para pagar</h3>
                 <img id="qr-imagen" src="" alt="Código QR">
                 <p id="qr-texto" style="display: none;"></p>
+                <div id="total-pago">
+                    <h3>Total: <span id="monto-total">$0</span></h3>
+                </div>
+                <button type="submit" class="btn-confirmar-pago">Confirmar Pago</button>
             </div>
         </div>
     </div>
 </section>
 
-        
-
-<!-- Sección Quiénes Somos -->
-<section class="about-us" id="Quienes">
-    <h1 class="about-us-title">¿Quiénes Somos?</h1>
-    <div class="about-us-cards">
-        <div class="about-us-card">
-            <div class="card-icon">
-                <i class="fa-solid fa-bullseye"></i>
-            </div>
-            <div class="card-content">
-                <h2>Misión</h2>
-                <p>Nuestra misión es deleitar a nuestros clientes con biscochería y galletas artesanales de alta calidad, utilizando ingredientes naturales y apoyando a productores locales.</p>
-            </div>
-        </div>
-        <div class="about-us-card">
-            <div class="card-icon">
-                <i class="fa-solid fa-eye"></i>
-            </div>
-            <div class="card-content">
-                <h2>Visión</h2>
-                <p>Ser la biscochería más reconocida en la región por calidad, innovación y satisfacción del cliente.</p>
-            </div>
-        </div>
-    </div>
-</section>
 
 <!-- Mapa de Ubicación -->
 <div class="mapanoti" id="ubi">

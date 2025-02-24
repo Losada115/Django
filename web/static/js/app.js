@@ -1,4 +1,3 @@
-// Variable que mantiene el estado visible del carrito
 var carritoVisible = false;
 
 // Esperamos que la página cargue completamente
@@ -26,29 +25,27 @@ function ready() {
         botonPagar.addEventListener('click', pagarClicked);
     }
 
-    document.getElementById('nequi').addEventListener('click', function () {
-        mostrarQR("/static/img/qrn.jpeg", "Número: 3227281252");
-    });
-
-    document.getElementById('daviplata').addEventListener('click', function () {
-        mostrarQR("/static/img/qrn.jpeg", "Número: 3227281252");
-    });
-
-    document.getElementById('bancolombia').addEventListener('click', function () {
-        mostrarQR("/static/img/qrn.jpeg", "Cuenta: 03227281252");
-    });
-
+    document.getElementById('nequi').addEventListener('click', () => mostrarQR("/static/img/qrn.jpeg", "Número: 3227281252"));
+    document.getElementById('daviplata').addEventListener('click', () => mostrarQR("/static/img/qrn.jpeg", "Número: 3227281252"));
+    
     document.querySelector(".cerrar").addEventListener("click", cerrarModal);
+
+    window.addEventListener("click", function (event) {
+        let modal = document.getElementById("modal-pago");
+        if (event.target === modal) {
+            cerrarModal();
+        }
+    });
 }
 
 function pagarClicked() {
     let modalPago = document.getElementById("modal-pago");
     if (modalPago) {
-        modalPago.style.display = "block";  
-        document.querySelector(".opciones-pago").style.display = "block"; 
-        document.getElementById("qr-container").style.display = "none";  
-
-        // Desplazar automáticamente a la sección de métodos de pago
+        modalPago.style.display = "block";
+        document.querySelector(".opciones-pago").style.display = "block";
+        document.getElementById("qr-container").style.display = "none";
+        mostrarProductosEnPago();
+        actualizarTotalPago();
         modalPago.scrollIntoView({ behavior: "smooth" });
     }
 }
@@ -61,19 +58,58 @@ function mostrarQR(imagen, texto) {
     document.querySelector(".opciones-pago").style.display = "none";
     document.getElementById("qr-container").style.display = "block";
     document.getElementById("qr-imagen").src = imagen;
-    
-    let qrTexto = document.getElementById("qr-texto");
-    qrTexto.innerText = texto;
-    qrTexto.style.display = "block";
+    document.getElementById("qr-texto").innerText = texto;
+}
+
+function actualizarTotalCarrito() {
+    let total = 0;
+
+    document.querySelectorAll(".carrito-item").forEach(item => {
+        let precioTexto = item.querySelector(".carrito-item-precio").innerText;
+        let precio = parseFloat(precioTexto.replace(/[^0-9.]/g, "")) || 0; 
+        let cantidad = parseInt(item.querySelector(".carrito-item-cantidad").value) || 0;
+
+        total += precio * cantidad;
+    });
+
+    total = Math.round(total);
+
+    let totalElemento = document.querySelector(".carrito-precio-total");
+    if (totalElemento) {
+        totalElemento.innerText = `$${total}`;
+    }
+
+    actualizarTotalPago();
+}
+
+function actualizarTotalPago() {
+    let totalElemento = document.querySelector(".carrito-precio-total");
+    let total = totalElemento ? parseInt(totalElemento.innerText.replace(/[^0-9]/g, "")) : 0;
+
+    let montoTotalElemento = document.getElementById("monto-total");
+    if (montoTotalElemento) {
+        montoTotalElemento.innerText = `$${total}`;
+    }
+}
+
+function mostrarProductosEnPago() {
+    let productosHTML = [...document.querySelectorAll(".carrito-item")].map(item => 
+        `<div class="producto-pago">
+            <img src="${item.querySelector('img').src}" width="50" alt="${item.querySelector('.carrito-item-titulo').innerText}">
+            <p>${item.querySelector('.carrito-item-titulo').innerText} x${item.querySelector('.carrito-item-cantidad').value} - ${item.querySelector('.carrito-item-precio').innerText}</p>
+        </div>`
+    ).join('');
+
+    document.getElementById("productos-pago").innerHTML = productosHTML;
+
+    actualizarTotalPago();
 }
 
 function agregarAlCarritoClicked(event) {
-    var button = event.target;
-    var item = button.parentElement;
-    var titulo = item.querySelector('.titulo-item').innerText;
-    var precio = item.querySelector('.precio-item').innerText;
-    var imagenSrc = item.querySelector('.img-item').src;
-
+    let item = event.target.parentElement;
+    let titulo = item.querySelector('.titulo-item').innerText;
+    let precio = item.querySelector('.precio-item').innerText;
+    let imagenSrc = item.querySelector('.img-item').src;
     agregarItemAlCarrito(titulo, precio, imagenSrc);
     hacerVisibleCarrito();
 }
@@ -86,20 +122,16 @@ function hacerVisibleCarrito() {
 }
 
 function agregarItemAlCarrito(titulo, precio, imagenSrc) {
-    var item = document.createElement('div');
-    item.classList.add('carrito-item');
-    var itemsCarrito = document.querySelector('.carrito-items');
-
-    var nombresItemsCarrito = itemsCarrito.querySelectorAll('.carrito-item-titulo');
-    for (var i = 0; i < nombresItemsCarrito.length; i++) {
-        if (nombresItemsCarrito[i].innerText === titulo) {
-            alert("El item ya se encuentra en el carrito");
-            return;
-        }
+    let itemsCarrito = document.querySelector('.carrito-items');
+    if ([...itemsCarrito.querySelectorAll('.carrito-item-titulo')].some(item => item.innerText === titulo)) {
+        alert("El item ya se encuentra en el carrito");
+        return;
     }
 
-    item.innerHTML = `
-        <img src="${imagenSrc}" width="80px" alt="">
+    let item = document.createElement('div');
+    item.classList.add('carrito-item');
+    item.innerHTML = 
+        `<img src="${imagenSrc}" width="80px" alt="Imagen del producto">
         <div class="carrito-item-detalles">
             <span class="carrito-item-titulo">${titulo}</span>
             <div class="selector-cantidad">
@@ -109,28 +141,23 @@ function agregarItemAlCarrito(titulo, precio, imagenSrc) {
             </div>
             <span class="carrito-item-precio">${precio}</span>
         </div>
-        <button class="btn-eliminar">
-            <i class="fa-solid fa-trash"></i>
-        </button>`;
+        <button class="btn-eliminar"><i class="fa-solid fa-trash"></i></button>`;
 
     itemsCarrito.appendChild(item);
     item.querySelector('.btn-eliminar').addEventListener('click', eliminarItemCarrito);
     item.querySelector('.restar-cantidad').addEventListener('click', restarCantidad);
     item.querySelector('.sumar-cantidad').addEventListener('click', sumarCantidad);
-
     actualizarTotalCarrito();
 }
 
 function sumarCantidad(event) {
-    var selector = event.target.parentElement;
-    var cantidadElemento = selector.querySelector('.carrito-item-cantidad');
+    let cantidadElemento = event.target.parentElement.querySelector('.carrito-item-cantidad');
     cantidadElemento.value = parseInt(cantidadElemento.value) + 1;
     actualizarTotalCarrito();
 }
 
 function restarCantidad(event) {
-    var selector = event.target.parentElement;
-    var cantidadElemento = selector.querySelector('.carrito-item-cantidad');
+    let cantidadElemento = event.target.parentElement.querySelector('.carrito-item-cantidad');
     if (parseInt(cantidadElemento.value) > 1) {
         cantidadElemento.value = parseInt(cantidadElemento.value) - 1;
         actualizarTotalCarrito();
@@ -144,26 +171,11 @@ function eliminarItemCarrito(event) {
 }
 
 function ocultarCarrito() {
-    var carritoItems = document.querySelector('.carrito-items');
-    if (carritoItems.childElementCount === 0) {
-        document.querySelector('.carrito').style.marginRight = '-100%';
-        document.querySelector('.carrito').style.opacity = '0';
+    let carrito = document.querySelector(".carrito-items");
+    if (carrito && carrito.children.length === 0) {
+        document.querySelector(".carrito").style.marginRight = "-100%";
+        document.querySelector(".carrito").style.opacity = "0";
+        document.querySelector(".contenedor-items").style.width = "100%";
         carritoVisible = false;
-        document.querySelector('.contenedor-items').style.width = '100%';
     }
-}
-
-function actualizarTotalCarrito() {
-    var carritoItems = document.querySelector(".carrito-items");
-    var carritoItem = carritoItems.querySelectorAll(".carrito-item");
-    var total = 0;
-
-    carritoItem.forEach(item => {
-        var precioTexto = item.querySelector(".carrito-item-precio").innerText;
-        var precio = parseFloat(precioTexto.replace(/[^\d.]/g, ""));
-        var cantidad = parseInt(item.querySelector(".carrito-item-cantidad").value);
-        total += precio * cantidad;
-    });
-
-    document.querySelector(".carrito-precio-total").innerText = "$" + Math.floor(total);
 }
