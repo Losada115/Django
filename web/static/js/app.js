@@ -16,18 +16,22 @@ function ready() {
         boton.addEventListener('click', restarCantidad);
     });
 
+    document.getElementById("confirmarPago").addEventListener("click", function () {
+        confirmarPago();
+    });
+
     document.querySelectorAll('.agregar-carrito').forEach(boton => {
         boton.addEventListener('click', agregarAlCarritoClicked);
     });
 
     let botonPagar = document.getElementById('btn-pagar');
     if (botonPagar) {
-        botonPagar.addEventListener('click', pagarClicked);
+        botonPagar.addEventListener('click', mostrarModalPago);
     }
 
     document.getElementById('nequi').addEventListener('click', () => mostrarQR("/static/img/qrn.jpeg", "Número: 3227281252"));
     document.getElementById('daviplata').addEventListener('click', () => mostrarQR("/static/img/qrn.jpeg", "Número: 3227281252"));
-    
+
     document.querySelector(".cerrar").addEventListener("click", cerrarModal);
 
     window.addEventListener("click", function (event) {
@@ -38,7 +42,7 @@ function ready() {
     });
 }
 
-function pagarClicked() {
+function mostrarModalPago() {
     let modalPago = document.getElementById("modal-pago");
     if (modalPago) {
         modalPago.style.display = "block";
@@ -179,3 +183,76 @@ function ocultarCarrito() {
         carritoVisible = false;
     }
 }
+
+function confirmarPago() {
+    let emailCliente = document.getElementById("email") ? document.getElementById("email").value.trim() : "";
+    let nombre = document.getElementById("nombre").value;
+    let apellido = document.getElementById("apellido").value;
+    let celular = document.getElementById("celular").value;
+    let municipio = document.getElementById("municipio").value;
+    let residencia = document.getElementById("residencia").value;
+    let metodoPago = document.querySelector("#qr-container").style.display === "block" ? "Nequi o Daviplata" : "Otro";
+    
+    let totalElemento = document.getElementById("monto-total");
+    let total = totalElemento ? totalElemento.innerText.replace(/[^0-9]/g, "") : "0";
+
+    let productos = [...document.querySelectorAll(".carrito-item")].map(item => ({
+        titulo: item.querySelector(".carrito-item-titulo").innerText,
+        cantidad: item.querySelector(".carrito-item-cantidad").value,
+        precio: item.querySelector(".carrito-item-precio").innerText
+    }));
+
+    let productosTexto = productos.map(p => `${p.titulo} x${p.cantidad} - ${p.precio}`).join("\n");
+
+    // Enviar los datos al backend
+    fetch("/enviar-correo/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": getCSRFToken() // Obtiene el CSRF Token de Django
+        },
+        body: JSON.stringify({
+            email: emailCliente,
+            nombre: nombre,
+            apellido: apellido,
+            celular: celular,
+            municipio: municipio,
+            residencia: residencia,
+            productos: productosTexto,
+            metodo_pago: metodoPago,
+            total: total
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.mensaje) {
+            alert("Pago confirmado. La factura ha sido enviada.");
+            document.querySelector(".carrito-items").innerHTML = "";
+            actualizarTotalCarrito();
+            cerrarModal();
+        } else {
+            alert("Error al enviar la factura.");
+        }
+    })
+    .catch(error => console.error("Error:", error));
+}
+
+// Función para obtener el CSRF Token de Django
+function getCSRFToken() {
+    let cookieValue = null;
+    let cookies = document.cookie.split(";");
+    for (let i = 0; i < cookies.length; i++) {
+        let cookie = cookies[i].trim();
+        if (cookie.startsWith("csrftoken=")) {
+            cookieValue = cookie.substring("csrftoken=".length, cookie.length);
+            break;
+        }
+    }
+    return cookieValue;
+}
+
+
+
+
+
+    

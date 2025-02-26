@@ -129,12 +129,15 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 # Ruta de redirección para usuarios no autenticados
 # LOGIN_URL = '/login/'  # Ajusta esto a la URL de tu vista de inicio de sesión**
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'sabrosurashuila@gmail.com'
-EMAIL_HOST_PASSWORD = 'nzejmwljfmcqlnif'  # Reemplázalo con la contraseña generada
+EMAIL_USE_SSL = False  # IMPORTANTE: No usar TLS y SSL al mismo tiempo
+EMAIL_HOST_USER = "sabrosurashuila@gmail.com"
+EMAIL_HOST_PASSWORD = "nzejmwljfmcqlnif"  # Asegúrate de que es la contraseña correcta
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER  # Para evitar problemas de remitente
+
 
 
 

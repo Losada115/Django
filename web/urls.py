@@ -3,7 +3,8 @@ from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
-from .views import confirmar_pago
+from .views import enviar_correo_confirmacion
+
 
 
 urlpatterns = [
@@ -12,7 +13,8 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('', views.home, name='home'),
     path('contactanos/', views.contactanos, name='contactanos'),
-    path('confirmar_pago/', confirmar_pago, name='confirmar_pago')
+    path("enviar-correo/", enviar_correo_confirmacion, name="enviar_correo"),
+    
 
 
 ]
