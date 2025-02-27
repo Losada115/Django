@@ -17,6 +17,7 @@ urlpatterns = [
     path('restablecer/', views.restablecer, name='restablecer'),
     path("cambiar_contraseña/<uidb64>/<token>/", views.cambiar_contraseña, name="cambiar_contraseña"),
     path("cambio_contraseña/", views.cambio_contraseña, name="cambio_contraseña"),
+    path('manual_usuario/', views.manual_usuario, name='manual_usuario'),
     
 
 
@@ -24,5 +25,8 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
 
 

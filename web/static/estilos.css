@@ -121,6 +121,86 @@ html {
     margin: 0;
 }
 
+
+/* Estilos generales para el ícono de usuario */
+.container-user {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.user-dropdown {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50px;
+    background-color: #f4f4f4;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.user-dropdown i {
+    margin-right: 8px;
+    font-size: 24px;
+}
+
+.user-dropdown p {
+    margin: 0;
+    font-weight: bold;
+    color: #333;
+}
+
+.user-dropdown:hover {
+    background-color: #e0e0e0;
+}
+
+/* Menú desplegable */
+.dropdown-content {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    min-width: 200px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    display: none; /* Inicialmente oculto */
+    border-radius: 8px;
+}
+
+.dropdown-content a {
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #333;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Manual de Usuario */
+.manual-toggle {
+    display: flex;
+    align-items: center;
+}
+
+.manual-toggle i {
+    margin-right: 5px;
+}
+
+.manual-content {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    display: none; /* Inicialmente oculto */
+}
+
+.manual-toggle:hover .manual-content {
+    display: block;
+}
+
+
 /* ********* MENU DE NAVEGACIÓN ********* */
 .hamburguer {
     position: fixed;

@@ -331,3 +331,10 @@ def cambiar_contraseña (request, uidb64, token):
 
 def cambio_contraseña(request):
     return render(request, "cambio_contraseña.html")
+
+
+
+from django.shortcuts import render
+
+def manual_usuario(request):
+    return render(request, 'manual_usuario.html')

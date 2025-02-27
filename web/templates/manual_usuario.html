@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <html lang="es">
+    <head>
+        {% load static %}  <!-- Carga la etiqueta static -->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Manual de Usuario - Sabrosuras del Huila</title>
+        <!-- Carga del archivo CSS estático -->
+        <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+        <link rel="shortcut icon" href="{% static 'img/Sabrosuras del Huila.png' %}">
+    </head>
+    <body>
+
+        <!-- Contenido Principal -->
+        <main>
+            <div class="manual-container">
+                <h2>Manual de Usuario</h2>
+                <p>Bienvenido al manual de usuario de Sabrosuras del Huila. Aquí encontrarás información útil sobre cómo navegar en el sitio y utilizar sus características.</p>
+
+                <h3>Secciones del sitio</h3>
+                <ul>
+                    <li><strong>Inicio:</strong> Encuentra información general sobre nuestros productos y servicios.</li>
+                    <li><strong>Categorías:</strong> Descubre las diferentes categorías de productos que ofrecemos.</li>
+                    <li><strong>Productos:</strong> Consulta nuestra galería de productos y sus detalles.</li>
+                    <li><strong>Ubicación:</strong> Encuentra nuestra dirección y cómo llegar.</li>
+                </ul>
+
+                <h3>Cómo realizar pedidos</h3>
+                <p>Para realizar un pedido, primero debes iniciar sesión en tu cuenta. Luego, selecciona los productos que deseas adquirir y agréguelos al carrito. Una vez listo, procede al pago.</p>
+
+                <h3>Soporte al cliente</h3>
+                <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en <a href="{% url 'contactanos' %}">contactarnos</a>.</p>
+
+                <!-- Imagen ejemplo -->
+                <img src="{% static 'img/ejemplo.jpg' %}" alt="Imagen de ejemplo" />
+
+                <!-- Caja de soporte adicional -->
+                <div class="soporte">
+                    <h3>¿Tienes dudas?</h3>
+                    <p>Si necesitas más información sobre nuestros productos o el proceso de compra, puedes contactarnos directamente a través de nuestro formulario de contacto.</p>
+                    <a href="{% url 'contactanos' %}" class="contact-btn">Ir al Formulario de Contacto</a>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container-footer">
+                <p>&copy; 2025 Sabrosuras del Huila. Todos los derechos reservados.</p>
+            </div>
+        </footer>
+    </body>
+    </html>
+{% endblock %}
+

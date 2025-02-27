@@ -13,63 +13,74 @@
 </head>
 <body>
     <!-- Header principal con logo, contacto y usuario -->
-<header>
-    <div class="container-hero">
-        <div class="container hero">
-            
-            <!-- Soporte al cliente -->
-            <div class="customer-support">
-                <i class="fa-solid fa-envelope"></i>
-                <div class="content-customer-support">
-                    <span class="text"><a href="{% url 'contactanos' %}">Contáctanos aquí</a></span>
+    <header>
+        <div class="container-hero">
+            <div class="container hero">
+                
+                <!-- Soporte al cliente -->
+                <div class="customer-support">
+                    <i class="fa-solid fa-envelope"></i>
+                    <div class="content-customer-support">
+                        <span class="text"><a href="{% url 'contactanos' %}">Contáctanos aquí</a></span>
+                    </div>
+                </div>
+
+                <!-- Logo -->
+                <div class="container-logo">
+                    <h1 class="logo"><a href="/">Sabrosuras del Huila</a></h1>
+                </div>
+
+                <!-- Icono de usuario y saludo -->
+                <div class="container-user">
+                    {% if user.is_authenticated %}
+                        <!-- Menú desplegable del usuario -->
+                        <div class="user-dropdown">
+                            <i class="fa-solid fa-user-circle"></i>  
+                            <p>Bienvenido, {{ user.username }} 🖐🏽</p>
+
+                            <!-- Menú desplegable -->
+                            <div class="dropdown-content">
+                                <a href="{% url 'logout' %}" class="logout-icon">
+                                    <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+                                </a>
+                                <a href="{% url 'manual_usuario' %}" target="_blank" class="manual-toggle">
+                                    <i class="fa-solid fa-book-open"></i> Manual de Usuario
+                                </a>
+                                
+                                </a>
+                                <div class="manual-content" style="display:none;">
+                                    <!-- Aquí puedes agregar el contenido del manual de usuario -->
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <!-- Si el usuario no está autenticado -->
+                        <div class="user-login">
+                            <a href="{% url 'login' %}" class="login-link">
+                                <i class="fa-solid fa-user"></i>
+                            </a>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
 
-            <!-- Logo -->
-            <div class="container-logo">
-                <h1 class="logo"><a href="/">Sabrosuras del Huila</a></h1>
+            <!-- Ícono del Menú Hamburguesa (sin cambios) -->
+            <div class="menu-container">
+                <img class="hamburguer" src="{% static 'img/menu.png' %}">
             </div>
 
-            <!-- Icono de usuario y saludo -->
-            <div class="container-user">
-                {% if user.is_authenticated %}
-                    <div class="user-info">
-                        <i class="fa-solid fa-user-circle"></i>  
-                        <p>Bienvenido, {{ user.username }} 🖐🏽</p>
-                        <a href="{% url 'logout' %}" class="logout-icon">
-                            <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
-                        </a>
-                    </div>
-                {% else %}
-                    <div class="user-login">
-                        <a href="{% url 'login' %}" class="login-link">
-                            <i class="fa-solid fa-user"></i>
-                            
-                        </a>
-                    </div>
-                {% endif %}
+            <!-- Menú de navegación -->
+            <div class="container-navbar">
+                <nav class="menu-navegacion">
+                    <a href="#inicio">Inicio</a>
+                    <a href="#Quienes">Quiénes somos</a>
+                    <a href="#servicios">Categorías</a>
+                    <a href="#Galeria">Productos</a>
+                    <a href="#ubi">Ubicación</a>
+                </nav>
             </div>
         </div>
-            
-            
-      <!-- Ícono del Menú Hamburguesa -->
-        <div class="menu-container">
-            <img class="hamburguer" src="{% static 'img/menu.png' %}">
-        </div>
-
-        <!-- Menú de navegación -->
-        <div class="container-navbar">
-            <nav class="menu-navegacion">
-                <a href="#inicio">Inicio</a>
-                <a href="#Quienes">Quiénes somos</a>
-                <a href="#servicios">Categorías</a>
-                <a href="#Galeria">Productos</a>
-                <a href="#ubi">Ubicación</a>
-            </nav>
-        </div>
-    </div>
-</header>
-
+    </header>
 
     <main>
         {% block content %}
@@ -95,7 +106,6 @@
                         <li><a href="#Quienes">Acerca de Nosotros</a></li>
                         <li><a href="#">Políticas de Privacidad</a></li>
                         <li><a href="#">Términos y condiciones</a></li>
-
                     </ul>
                 </div>
 
@@ -109,12 +119,11 @@
                         <a href="https://www.instagram.com/sabrosura_del_huila/" class="instagram" target="_blank" rel="noopener noreferrer">
                             <i class="fa-brands fa-instagram"></i>
                         </a>
-                    </div><H1></H1>
+                    </div>
                 </div>
             </div>         
         </div>
     </footer>
-
 
     <script src="{% static 'js/menu.js' %}"></script>
 </body>
