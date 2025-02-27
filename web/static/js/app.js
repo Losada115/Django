@@ -183,16 +183,58 @@ function ocultarCarrito() {
         carritoVisible = false;
     }
 }
+let metodoSeleccionado = "";
+let qrSeleccionado = ""; // Variable para la URL del QR
+
+document.getElementById('nequi').addEventListener('click', function() {
+    metodoSeleccionado = "Nequi";
+    qrSeleccionado = "/static/img/qrn.jpeg";
+    mostrarQR(qrSeleccionado, "Número: 3227281252");
+});
+
+document.getElementById('daviplata').addEventListener('click', function() {
+    metodoSeleccionado = "Daviplata";
+    qrSeleccionado = "/static/img/qrd.jpeg";
+    mostrarQR(qrSeleccionado, "Número: 3204500034");
+});
+
+function mostrarQR(imagenSrc, textoQR) {
+    let qrImagen = document.getElementById("qr-imagen");
+    let qrTexto = document.getElementById("qr-texto");
+    let qrContainer = document.getElementById("qr-container");
+
+    if (qrImagen) {
+        qrImagen.src = imagenSrc + "?t=" + new Date().getTime(); // Evitar caché
+        qrImagen.style.display = "block";  
+    }
+
+    if (qrTexto) {
+        qrTexto.innerText = textoQR;
+        qrTexto.style.display = "block";
+    }
+
+    if (qrContainer) {
+        qrContainer.style.display = "block"; 
+    }
+}
+
+document.getElementById("confirmarPago").addEventListener("click", function() {
+    confirmarPago();
+});
 
 function confirmarPago() {
-    let emailCliente = document.getElementById("email") ? document.getElementById("email").value.trim() : "";
+    let emailCliente = document.getElementById("email").value.trim();
     let nombre = document.getElementById("nombre").value;
     let apellido = document.getElementById("apellido").value;
     let celular = document.getElementById("celular").value;
     let municipio = document.getElementById("municipio").value;
     let residencia = document.getElementById("residencia").value;
-    let metodoPago = document.querySelector("#qr-container").style.display === "block" ? "Nequi o Daviplata" : "Otro";
-    
+
+    if (!metodoSeleccionado) {
+        alert("Por favor, selecciona un método de pago.");
+        return;
+    }
+
     let totalElemento = document.getElementById("monto-total");
     let total = totalElemento ? totalElemento.innerText.replace(/[^0-9]/g, "") : "0";
 
@@ -204,12 +246,11 @@ function confirmarPago() {
 
     let productosTexto = productos.map(p => `${p.titulo} x${p.cantidad} - ${p.precio}`).join("\n");
 
-    // Enviar los datos al backend
     fetch("/enviar-correo/", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "X-CSRFToken": getCSRFToken() // Obtiene el CSRF Token de Django
+            "X-CSRFToken": getCSRFToken()
         },
         body: JSON.stringify({
             email: emailCliente,
@@ -219,8 +260,9 @@ function confirmarPago() {
             municipio: municipio,
             residencia: residencia,
             productos: productosTexto,
-            metodo_pago: metodoPago,
-            total: total
+            metodo_pago: metodoSeleccionado,
+            total: total,
+            qr_imagen: qrSeleccionado // Enviar la URL del QR en el JSON
         })
     })
     .then(response => response.json())
@@ -237,7 +279,6 @@ function confirmarPago() {
     .catch(error => console.error("Error:", error));
 }
 
-// Función para obtener el CSRF Token de Django
 function getCSRFToken() {
     let cookieValue = null;
     let cookies = document.cookie.split(";");
@@ -250,9 +291,3 @@ function getCSRFToken() {
     }
     return cookieValue;
 }
-
-
-
-
-
-    

@@ -14,6 +14,9 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('contactanos/', views.contactanos, name='contactanos'),
     path("enviar-correo/", enviar_correo_confirmacion, name="enviar_correo"),
+    path('restablecer/', views.restablecer, name='restablecer'),
+    path("cambiar_contraseña/<uidb64>/<token>/", views.cambiar_contraseña, name="cambiar_contraseña"),
+    path("cambio_contraseña/", views.cambio_contraseña, name="cambio_contraseña"),
     
 
 
