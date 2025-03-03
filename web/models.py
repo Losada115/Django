@@ -37,3 +37,4 @@ class Pedido(models.Model):
     def __str__(self):
         return f"Pedido de {self.nombre} {self.apellido}"
 
+
