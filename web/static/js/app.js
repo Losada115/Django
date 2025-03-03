@@ -316,3 +316,7 @@ function verificarLoginYProceder() {
     })
     .catch(error => console.error("Error:", error));
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> b1a3155c67ff43baa7b033976ae58a1ae75a6fea
