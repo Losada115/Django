@@ -291,3 +291,29 @@ function getCSRFToken() {
     }
     return cookieValue;
 }
+
+document.getElementById('btn-pagar').addEventListener('click', function() {
+    verificarLoginYProceder();
+});
+
+function verificarLoginYProceder() {
+    fetch("/verificar-login/", {
+        method: "GET",
+        headers: {
+            "X-CSRFToken": getCSRFToken()
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.loggedIn) {
+            // Si el usuario está logueado, proceder con el pago
+            mostrarModalPago();
+        } else {
+            // Si el usuario no está logueado, redirigir al login con un mensaje
+            alert("Por favor, inicia sesión antes de realizar la compra.");
+            window.location.href = "/login";  // Redirige al login
+        }
+    })
+    .catch(error => console.error("Error:", error));
+}
+

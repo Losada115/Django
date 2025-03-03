@@ -2,6 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
 const cors = require("cors");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 require("dotenv").config(); // Para usar variables de entorno
 
 const app = express();
@@ -17,8 +19,79 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-// Ruta para procesar el pago y enviar correos
-app.post("/procesar-pago", async (req, res) => {
+// Simulación de una base de datos de usuarios (puedes reemplazar esto con tu base de datos real)
+const users = [];
+
+// 🔐 Middleware para verificar el token JWT
+function authenticateToken(req, res, next) {
+    const token = req.headers["authorization"];
+    if (!token) {
+        return res.status(401).json({ success: false, message: "Acceso no autorizado. Token no proporcionado." });
+    }
+
+    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+        if (err) {
+            return res.status(403).json({ success: false, message: "Token inválido o expirado." });
+        }
+        req.user = user;
+        next();
+    });
+}
+
+// 🔐 Ruta de registro
+app.post("/register", async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        // Verifica si el usuario ya existe
+        const userExists = users.find(user => user.email === email);
+        if (userExists) {
+            return res.status(400).json({ success: false, message: "El usuario ya existe." });
+        }
+
+        // Encripta la contraseña
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Guarda el usuario en la "base de datos"
+        const newUser = { email, password: hashedPassword };
+        users.push(newUser);
+
+        res.status(201).json({ success: true, message: "Usuario registrado exitosamente." });
+    } catch (error) {
+        console.error("Error en el registro:", error);
+        res.status(500).json({ success: false, message: "Error en el registro." });
+    }
+});
+
+// 🔐 Ruta de inicio de sesión
+app.post("/login", async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        // Busca el usuario en la "base de datos"
+        const user = users.find(user => user.email === email);
+        if (!user) {
+            return res.status(400).json({ success: false, message: "Usuario no encontrado." });
+        }
+
+        // Compara la contraseña
+        const validPassword = await bcrypt.compare(password, user.password);
+        if (!validPassword) {
+            return res.status(400).json({ success: false, message: "Contraseña incorrecta." });
+        }
+
+        // Genera un token JWT
+        const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, { expiresIn: "1h" });
+
+        res.json({ success: true, token });
+    } catch (error) {
+        console.error("Error en el inicio de sesión:", error);
+        res.status(500).json({ success: false, message: "Error en el inicio de sesión." });
+    }
+});
+
+// 🔐 Ruta para procesar el pago y enviar correos (requiere autenticación)
+app.post("/procesar-pago", authenticateToken, async (req, res) => {
     try {
         const { nombre, apellido, celular, municipio, residencia, email, productos, total, metodoPago } = req.body;
 
@@ -92,4 +165,3 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Servidor Node.js corriendo en http://localhost:${PORT}`);
 });
-

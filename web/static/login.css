@@ -135,3 +135,55 @@ h1 {
   text-decoration: underline;
 }
 
+/* Estilo para los mensajes */
+.messages {
+  margin-bottom: 20px;
+}
+
+.error-message {
+  background-color: #f8d7da; /* Color pastel rosa claro */
+  color: #721c24;
+  padding: 15px;
+  font-size: 16px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.alert-warning {
+  background-color: #fef3b2; /* Color pastel amarillo suave */
+  color: #856404;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.alert-success {
+  background-color: #a8e6cf; /* Color pastel verde suave */
+  color: #4f6d7a;
+  padding: 15px 25px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 10px;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+  max-width: 60%;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Animación de mensaje */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(-10px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+

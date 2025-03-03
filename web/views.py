@@ -12,6 +12,13 @@ from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
+from django.http import JsonResponse
+
+def verificar_login(request):
+    if request.user.is_authenticated:
+        return JsonResponse({"loggedIn": True})
+    else:
+        return JsonResponse({"loggedIn": False})
 
 # Vista para registrar usuario
 # def register_view(request):
@@ -60,6 +67,9 @@ def login_view(request):
             messages.error(request, 'Nombre de usuario o contraseña incorrectos')
     return render(request, 'login.html')
 
+
+
+
 # Vista para cerrar sesión
 def logout_view(request):
     logout(request)
@@ -72,6 +82,30 @@ def home(request):
     return render(request, 'home.html', {'productos': productos})  
 
 # Vista para la página de contacto
+# def contactanos(request):
+#     if request.method == "POST":
+#         name = request.POST.get("name")
+#         email = request.POST.get("email")
+#         message = request.POST.get("message")
+
+#         # Guardar en la base de datos
+#         MensajeContacto.objects.create(nombre=name, email=email, mensaje=message)
+
+#         # Enviar un correo con la información del contacto
+#         send_mail(
+#             subject=f"Nuevo mensaje de {name}",
+#             message=f"Nombre: {name}\nCorreo: {email}\nMensaje: {message}",
+#             from_email=settings.EMAIL_HOST_USER,  
+#             recipient_list=[settings.EMAIL_HOST_USER],  
+#             fail_silently=False,
+#         )
+
+#         messages.success(request, 'Mensaje enviado correctamente')
+#         return render(request, "contactanos.html", {"message_sent": True})
+
+#     return render(request, "contactanos.html")
+
+@login_required(login_url='login')  # Redirige al login si el usuario no está autenticado
 def contactanos(request):
     if request.method == "POST":
         name = request.POST.get("name")
