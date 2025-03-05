@@ -1,13 +1,23 @@
+# web/forms.py
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from .validators import validar_contraseña  # Importa el validador
 
-class RegistroForm(UserCreationForm):
-    email = forms.EmailField(required=True, label="Correo electrónico")
+class RegistroForm(forms.ModelForm):
+    password1 = forms.CharField(
+        widget=forms.PasswordInput,
+        label="Contraseña",
+        validators=[validar_contraseña]  # Añade el validador aquí
+    )
+    password2 = forms.CharField(
+        widget=forms.PasswordInput,
+        label="Confirmar Contraseña",
+    )
 
     class Meta:
         model = User
-        fields = ["username", "email", "password1", "password2"]
+        fields = ['username', 'email', 'password1', 'password2']
+
 
 # forms.py
 from django import forms

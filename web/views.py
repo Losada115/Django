@@ -37,21 +37,46 @@ def verificar_login(request):
 #         form = UserCreationForm()
 #     return render(request, 'registro.html', {'form': form})
 
+
+
+
+# def register_view(request):
+#     if request.method == 'POST':
+#         form = RegistroForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             messages.success(request, 'Registro exitoso')
+#             return redirect('login')  
+#         else:
+#             messages.error(request, 'Error en el registro')
+#             for field, errors in form.errors.items():
+#                 for error in errors:
+#                     messages.error(request, f"{field}: {error}")
+#     else:
+#         form = RegistroForm()  
+#     return render(request, 'registro.html', {'form': form})
+
 def register_view(request):
     if request.method == 'POST':
-        form = RegistroForm(request.POST)  # Usa RegistroForm
+        form = RegistroForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, 'Registro exitoso')
             return redirect('login')  
         else:
-            messages.error(request, 'Error en el registro')
+            # Capturamos errores más genéricos
             for field, errors in form.errors.items():
                 for error in errors:
-                    messages.error(request, f"{field}: {error}")
+                    # Si el error es de la contraseña, mostramos un mensaje genérico
+                    if field == 'password1':
+                        messages.error(request, "Error al digitar la contraseña. Revisa los requisitos y vuelve a intentarlo.")
+                    else:
+                        messages.error(request, f"{field}: {error}")
     else:
-        form = RegistroForm()  # Usa RegistroForm
+        form = RegistroForm()
+
     return render(request, 'registro.html', {'form': form})
+
 
 
 # Vista para iniciar sesión
