@@ -36,18 +36,10 @@
                     {{ form.email.label_tag }} 
                     {{ form.email }}  
                 </div>
-
-                <!-- Requisitos para la contraseña -->
                 <div class="input-box">
-                    <label for="password1">Contraseña</label>
-                    <input type="password" name="password1" id="password1" required minlength="8" pattern=".*\S.*" />
-                    <ul class="password-requirements">
-                        <li>Al menos 8 caracteres</li>
-                        <li>No debe ser una contraseña común</li>
-                        <li>No debe ser solo números</li>
-                    </ul>
+                    {{ form.password1.label_tag }} 
+                    {{ form.password1 }} 
                 </div>
-
                 <div class="input-box">
                     {{ form.password2.label_tag }} 
                     {{ form.password2 }}  
@@ -72,3 +64,7 @@
     </section>
 </body>
 </html>
+
+ 
+
+ 

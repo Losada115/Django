@@ -39,23 +39,6 @@ def verificar_login(request):
 
 
 
-
-# def register_view(request):
-#     if request.method == 'POST':
-#         form = RegistroForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             messages.success(request, 'Registro exitoso')
-#             return redirect('login')  
-#         else:
-#             messages.error(request, 'Error en el registro')
-#             for field, errors in form.errors.items():
-#                 for error in errors:
-#                     messages.error(request, f"{field}: {error}")
-#     else:
-#         form = RegistroForm()  
-#     return render(request, 'registro.html', {'form': form})
-
 def register_view(request):
     if request.method == 'POST':
         form = RegistroForm(request.POST)
@@ -64,7 +47,7 @@ def register_view(request):
             messages.success(request, 'Registro exitoso')
             return redirect('login')  
         else:
-            # Capturamos errores más genéricos
+            # Aquí solo manejamos los mensajes genéricos para mostrar en el template
             for field, errors in form.errors.items():
                 for error in errors:
                     # Si el error es de la contraseña, mostramos un mensaje genérico
@@ -76,6 +59,24 @@ def register_view(request):
         form = RegistroForm()
 
     return render(request, 'registro.html', {'form': form})
+
+def register_view(request):
+     if request.method == 'POST':
+         form = RegistroForm(request.POST)
+         if form.is_valid():
+             form.save()
+             messages.success(request, 'Registro exitoso')
+             return redirect('login')  
+         else:
+             messages.error(request, 'Error en el registro')
+             for field, errors in form.errors.items():
+                 for error in errors:
+                     messages.error(request, f"{field}: {error}")
+     else:
+         form = RegistroForm()  
+     return render(request, 'registro.html', {'form': form})
+
+
 
 
 
