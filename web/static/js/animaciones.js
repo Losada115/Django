@@ -97,3 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     observer.observe(videoContainer);
 });
+
+
+// CARRITO
+
