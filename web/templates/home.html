@@ -118,20 +118,25 @@
                     </div>
         
                     {% load humanize %}
-                    <section class="contenedor" id="Galeria">
-                        <div class="contenedor-items">
-                            {% for producto in productos %}
-                            <div class="item" data-categoria="{{ producto.categoria|lower }}">
-                                <span class="titulo-item">{{ producto.nombre }}</span>
-                                <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" class="img-item">
-                                <span class="precio-item">${{ producto.precio|floatformat:0|intcomma }}</span>
-                                <button class="boton-item agregar-carrito">Agregar al Carrito</button>
-                            </div>
-                        {% empty %}
-                            <p>No hay productos disponibles en este momento.</p>
-                        {% endfor %}
-                        
-                        </div>
+                    {% load humanize %}
+       <section class="contenedor" id="Galeria">
+            <div class="contenedor-items">
+             {% for producto in productos %}
+             <div class="item" data-categoria="{{ producto.categoria|lower }}">
+            <span class="titulo-item">{{ producto.nombre }}</span>
+            <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" class="img-item">
+            <div class="descripcion-item">
+                <p>{{ producto.descripcion }}</p>
+            </div>
+            <span class="precio-item">${{ producto.precio|floatformat:0|intcomma }}</span>
+            <button class="boton-item agregar-carrito">Agregar al Carrito</button>
+            </div>
+            {% empty %}
+           <p>No hay productos disponibles en este momento.</p>
+           {% endfor %}
+    </div>
+
+
                         <!-- Carrito de Compras -->
                         <div class="carrito">
                             <div class="header-carrito">
